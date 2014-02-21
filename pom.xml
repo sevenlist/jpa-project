@@ -9,6 +9,7 @@
         <groupId>com.sevenlist</groupId>
         <artifactId>groovy-project</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
 
     <dependencies>

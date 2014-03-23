@@ -1,16 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jpa-project</artifactId>
     <packaging>pom</packaging>
-
-    <parent>
-        <groupId>com.sevenlist</groupId>
-        <artifactId>groovy-project</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath/>
-    </parent>
 
     <dependencies>
         <dependency>
@@ -55,6 +49,13 @@
         </dependency>
     </dependencies>
 
+    <parent>
+        <groupId>com.sevenlist</groupId>
+        <artifactId>groovy-project</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
     <properties>
         <hibernate.version>4.3.4.Final</hibernate.version>
     </properties>
@@ -69,12 +70,14 @@
                         <artifactId>liquibase-maven-plugin</artifactId>
                         <version>3.1.1</version>
 
-                        <configuration>
-                            <propertyFile>database/liquibase.properties</propertyFile>
-
-                            <!-- see the unexpected behavior described in https://liquibase.jira.com/browse/CORE-1787 -->
-                            <propertyFileWillOverride>true</propertyFileWillOverride>
-                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
 
                         <dependencies>
                             <!-- YAML-based changelogs -->
@@ -85,14 +88,12 @@
                             </dependency>
                         </dependencies>
 
-                        <executions>
-                            <execution>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>update</goal>
-                                </goals>
-                            </execution>
-                        </executions>
+                        <configuration>
+                            <propertyFile>database/liquibase.properties</propertyFile>
+
+                            <!-- see the unexpected behavior described in https://liquibase.jira.com/browse/CORE-1787 -->
+                            <propertyFileWillOverride>true</propertyFileWillOverride>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

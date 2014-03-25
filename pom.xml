@@ -53,7 +53,7 @@
         <groupId>com.sevenlist</groupId>
         <artifactId>groovy-project</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath>../groovy-project/pom.xml</relativePath>
     </parent>
 
     <properties>
@@ -64,38 +64,40 @@
         <profile>
             <id>liquibase</id>
             <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.liquibase</groupId>
-                        <artifactId>liquibase-maven-plugin</artifactId>
-                        <version>3.1.1</version>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.liquibase</groupId>
+                            <artifactId>liquibase-maven-plugin</artifactId>
+                            <version>3.1.1</version>
 
-                        <executions>
-                            <execution>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>update</goal>
-                                </goals>
-                            </execution>
-                        </executions>
+                            <executions>
+                                <execution>
+                                    <phase>process-test-resources</phase>
+                                    <goals>
+                                        <goal>update</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
 
-                        <dependencies>
-                            <!-- YAML-based changelogs -->
-                            <dependency>
-                                <groupId>org.yaml</groupId>
-                                <artifactId>snakeyaml</artifactId>
-                                <version>1.13</version>
-                            </dependency>
-                        </dependencies>
+                            <dependencies>
+                                <!-- YAML-based changelogs -->
+                                <dependency>
+                                    <groupId>org.yaml</groupId>
+                                    <artifactId>snakeyaml</artifactId>
+                                    <version>1.13</version>
+                                </dependency>
+                            </dependencies>
 
-                        <configuration>
-                            <propertyFile>database/liquibase.properties</propertyFile>
+                            <configuration>
+                                <propertyFile>database/liquibase.properties</propertyFile>
 
-                            <!-- see the unexpected behavior described in https://liquibase.jira.com/browse/CORE-1787 -->
-                            <propertyFileWillOverride>true</propertyFileWillOverride>
-                        </configuration>
-                    </plugin>
-                </plugins>
+                                <!-- see the unexpected behavior described in https://liquibase.jira.com/browse/CORE-1787 -->
+                                <propertyFileWillOverride>true</propertyFileWillOverride>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
             </build>
         </profile>
     </profiles>
